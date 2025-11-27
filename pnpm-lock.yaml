@@ -66,13 +66,13 @@ importers:
       '@hono/trpc-server':
         specifier: ^0.4.0
         version: 0.4.0(@trpc/server@11.7.2(typescript@5.9.3))(hono@4.10.7)
-      '@my-better-t-app/api':
+      '@repo/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@my-better-t-app/auth':
+      '@repo/auth':
         specifier: workspace:*
         version: link:../../packages/auth
-      '@my-better-t-app/db':
+      '@repo/db':
         specifier: workspace:*
         version: link:../../packages/db
       '@trpc/server':
@@ -94,7 +94,7 @@ importers:
         specifier: ^4.1.11
         version: 4.1.13
     devDependencies:
-      '@my-better-t-app/config':
+      '@repo/config':
         specifier: workspace:*
         version: link:../../packages/config
       '@types/bun':
@@ -112,10 +112,10 @@ importers:
       '@ai-sdk/react':
         specifier: ^2.0.39
         version: 2.0.102(react@19.2.0)(zod@4.1.13)
-      '@my-better-t-app/api':
+      '@repo/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@my-better-t-app/auth':
+      '@repo/auth':
         specifier: workspace:*
         version: link:../../packages/auth
       '@tanstack/react-form':
@@ -185,7 +185,7 @@ importers:
         specifier: ^4.1.12
         version: 4.1.13
     devDependencies:
-      '@my-better-t-app/config':
+      '@repo/config':
         specifier: workspace:*
         version: link:../../packages/config
       '@tailwindcss/postcss':
@@ -215,10 +215,10 @@ importers:
       '@ai-sdk/google':
         specifier: 'catalog:'
         version: 2.0.43(zod@4.1.13)
-      '@my-better-t-app/auth':
+      '@repo/auth':
         specifier: workspace:*
         version: link:../auth
-      '@my-better-t-app/db':
+      '@repo/db':
         specifier: workspace:*
         version: link:../db
       '@trpc/client':
@@ -246,13 +246,13 @@ importers:
         specifier: ^4.1.11
         version: 4.1.13
     devDependencies:
-      '@my-better-t-app/config':
+      '@repo/config':
         specifier: workspace:*
         version: link:../config
 
   packages/auth:
     dependencies:
-      '@my-better-t-app/db':
+      '@repo/db':
         specifier: workspace:*
         version: link:../db
       better-auth:
@@ -268,7 +268,7 @@ importers:
         specifier: ^4.1.11
         version: 4.1.13
     devDependencies:
-      '@my-better-t-app/config':
+      '@repo/config':
         specifier: workspace:*
         version: link:../config
 
@@ -295,7 +295,7 @@ importers:
         specifier: ^4.1.11
         version: 4.1.13
     devDependencies:
-      '@my-better-t-app/config':
+      '@repo/config':
         specifier: workspace:*
         version: link:../config
       '@types/ws':

@@ -1,5 +1,5 @@
 {
-  "name": "@my-better-t-app/auth",
+  "name": "@repo/auth",
   "exports": {
     ".": {
       "default": "./src/index.ts"
@@ -11,7 +11,7 @@
   "type": "module",
   "scripts": {},
   "devDependencies": {
-    "@my-better-t-app/config": "workspace:*"
+    "@repo/config": "workspace:*"
   },
   "peerDependencies": {
     "typescript": "^5"
@@ -20,6 +20,6 @@
     "better-auth": "catalog:",
     "dotenv": "catalog:",
     "zod": "^4.1.11",
-    "@my-better-t-app/db": "workspace:*"
+    "@repo/db": "workspace:*"
   }
 }

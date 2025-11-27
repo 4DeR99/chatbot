@@ -31,8 +31,8 @@
     "streamdown": "^1.3.0",
     "shiki": "^3.12.2",
     "better-auth": "catalog:",
-    "@my-better-t-app/api": "workspace:*",
-    "@my-better-t-app/auth": "workspace:*"
+    "@repo/api": "workspace:*",
+    "@repo/auth": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",
@@ -42,6 +42,6 @@
     "tailwindcss": "^4.1.10",
     "typescript": "^5",
     "@tanstack/react-query-devtools": "^5.85.5",
-    "@my-better-t-app/config": "workspace:*"
+    "@repo/config": "workspace:*"
   }
 }
