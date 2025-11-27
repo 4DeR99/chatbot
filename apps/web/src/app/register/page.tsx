@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
-export default function LoginPage() {
+export default function RegisterPage() {
 	const handleGoogleSignIn = async () => {
 		await authClient.signIn.social({
 			provider: "google",
@@ -19,18 +19,20 @@ export default function LoginPage() {
 
 	const form = useForm({
 		defaultValues: {
+			name: "",
 			email: "",
 			password: "",
 		},
 		onSubmit: async ({ value }) => {
-			await authClient.signIn.email(
+			await authClient.signUp.email(
 				{
 					email: value.email,
 					password: value.password,
+					name: value.name,
 				},
 				{
 					onSuccess: () => {
-						toast.success("Welcome back!");
+						toast.success("Account created successfully!");
 						// Use window.location for full page reload to ensure cookie is read by middleware
 						window.location.href = "/";
 					},
@@ -42,6 +44,7 @@ export default function LoginPage() {
 		},
 		validators: {
 			onSubmit: z.object({
+				name: z.string().min(2, "Name must be at least 2 characters"),
 				email: z.email("Invalid email address"),
 				password: z.string().min(8, "Password must be at least 8 characters"),
 			}),
@@ -52,9 +55,9 @@ export default function LoginPage() {
 		<div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4">
 			<div className="w-full max-w-md space-y-8">
 				<div className="text-center">
-					<h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
+					<h1 className="text-3xl font-bold tracking-tight">Create account</h1>
 					<p className="mt-2 text-muted-foreground">
-						Sign in to continue to your conversations
+						Sign up to start your AI conversations
 					</p>
 				</div>
 
@@ -105,6 +108,32 @@ export default function LoginPage() {
 					}}
 					className="space-y-4"
 				>
+					<div>
+						<form.Field name="name">
+							{(field) => (
+								<div className="space-y-2">
+									<Label htmlFor={field.name}>Name</Label>
+									<Input
+										id={field.name}
+										name={field.name}
+										placeholder="John Doe"
+										value={field.state.value}
+										onBlur={field.handleBlur}
+										onChange={(e) => field.handleChange(e.target.value)}
+									/>
+									{field.state.meta.errors.map((error) => (
+										<p
+											key={error?.message}
+											className="text-sm text-destructive"
+										>
+											{error?.message}
+										</p>
+									))}
+								</div>
+							)}
+						</form.Field>
+					</div>
+
 					<div>
 						<form.Field name="email">
 							{(field) => (
@@ -166,19 +195,19 @@ export default function LoginPage() {
 								className="w-full"
 								disabled={!state.canSubmit || state.isSubmitting}
 							>
-								{state.isSubmitting ? "Signing in..." : "Sign In"}
+								{state.isSubmitting ? "Creating account..." : "Sign Up"}
 							</Button>
 						)}
 					</form.Subscribe>
 				</form>
 
 				<p className="text-center text-sm text-muted-foreground">
-					Don't have an account?{" "}
+					Already have an account?{" "}
 					<Link
-						href="/register"
+						href="/login"
 						className="font-medium text-primary hover:underline"
 					>
-						Sign up
+						Sign in
 					</Link>
 				</p>
 			</div>
