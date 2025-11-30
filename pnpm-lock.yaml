@@ -9,9 +9,6 @@ catalogs:
     '@ai-sdk/google':
       specifier: ^2.0.13
       version: 2.0.43
-    '@trpc/client':
-      specifier: ^11.5.0
-      version: 11.7.2
     '@trpc/server':
       specifier: ^11.5.0
       version: 11.7.2
@@ -24,9 +21,6 @@ catalogs:
     dotenv:
       specifier: ^17.2.2
       version: 17.2.3
-    drizzle-orm:
-      specifier: ^0.44.2
-      version: 0.44.7
     hono:
       specifier: ^4.8.2
       version: 4.10.7
@@ -81,9 +75,12 @@ importers:
       ai:
         specifier: 'catalog:'
         version: 5.0.102(zod@4.1.13)
+      ai-sdk-ollama:
+        specifier: ^1.0.2
+        version: 1.0.2(ai@5.0.102(zod@4.1.13))(zod@4.1.13)
       better-auth:
         specifier: 'catalog:'
-        version: 1.4.2(next@16.0.0(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 1.4.2
       dotenv:
         specifier: 'catalog:'
         version: 17.2.3
@@ -2168,6 +2165,12 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
+  ai-sdk-ollama@1.0.2:
+    resolution: {integrity: sha512-RT/FShttyyztQA8Gm/FFdXU61Yg4aTf18zZAmd0RJ3Q/8Wv72EQszwI+T9hvEP1qF7do/z1aHQMx+ZdXBaRbvQ==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      ai: ^5.0.97
+
   ai@5.0.102:
     resolution: {integrity: sha512-snRK3nS5DESOjjpq7S74g8YszWVMzjagfHqlJWZsbtl9PyOS+2XUd8dt2wWg/jdaq/jh0aU66W1mx5qFjUQyEg==}
     engines: {node: '>=18'}
@@ -3210,6 +3213,9 @@ packages:
   obug@2.1.1:
     resolution: {integrity: sha512-uTqF9MuPraAQ+IsnPf366RG4cP9RtUi7MLO1N3KEc+wb0a6yKpeL0lmk2IB1jY5KHPAlTc6T/JRdC/YqxHNwkQ==}
 
+  ollama@0.6.3:
+    resolution: {integrity: sha512-KEWEhIqE5wtfzEIZbDCLH51VFZ6Z3ZSa6sIOg/E/tBV8S51flyqBOXi+bRxlOYKDf8i327zG9eSTb8IJxvm3Zg==}
+
   onetime@7.0.0:
     resolution: {integrity: sha512-VXJjc87FScF88uafS3JllDgvAm+c/Slfz06lorj2uAY34rlUu0Nt+v8wreiImcrgAjjIHp1rXpTDlLOGw29WwQ==}
     engines: {node: '>=18'}
@@ -3775,6 +3781,9 @@ packages:
 
   web-namespaces@2.0.1:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
+
+  whatwg-fetch@3.6.20:
+    resolution: {integrity: sha512-EqhiFU6daOA8kpjOWTL0olhVOF3i7OrFzSYiGsEMB8GcXS+RrzauAERX65xMeNWVqxA6HXH2m69Z9LaKKdisfg==}
 
   wrap-ansi@9.0.2:
     resolution: {integrity: sha512-42AtmgqjV+X1VpdOfyTGOYRi0/zsoLqtXQckTmqTeybT+BDIbM/Guxo7x3pE2vtpr1ok6xRqM9OpBe+Jyoqyww==}
@@ -5482,6 +5491,15 @@ snapshots:
 
   acorn@8.15.0: {}
 
+  ai-sdk-ollama@1.0.2(ai@5.0.102(zod@4.1.13))(zod@4.1.13):
+    dependencies:
+      '@ai-sdk/provider': 2.0.0
+      '@ai-sdk/provider-utils': 3.0.17(zod@4.1.13)
+      ai: 5.0.102(zod@4.1.13)
+      ollama: 0.6.3
+    transitivePeerDependencies:
+      - zod
+
   ai@5.0.102(zod@4.1.13):
     dependencies:
       '@ai-sdk/gateway': 2.0.15(zod@4.1.13)
@@ -5514,6 +5532,22 @@ snapshots:
       '@babel/types': 7.28.5
 
   bail@2.0.2: {}
+
+  better-auth@1.4.2:
+    dependencies:
+      '@better-auth/core': 1.4.2(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.18)(better-call@1.1.0)(jose@6.1.2)(kysely@0.28.8)(nanostores@1.1.0)
+      '@better-auth/telemetry': 1.4.2(@better-auth/core@1.4.2(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.18)(better-call@1.1.0)(jose@6.1.2)(kysely@0.28.8)(nanostores@1.1.0))
+      '@better-auth/utils': 0.3.0
+      '@better-fetch/fetch': 1.1.18
+      '@noble/ciphers': 2.0.1
+      '@noble/hashes': 2.0.1
+      '@standard-schema/spec': 1.0.0
+      better-call: 1.1.0
+      defu: 6.1.4
+      jose: 6.1.2
+      kysely: 0.28.8
+      nanostores: 1.1.0
+      zod: 4.1.13
 
   better-auth@1.4.2(next@16.0.0(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
@@ -6744,6 +6778,10 @@ snapshots:
 
   obug@2.1.1: {}
 
+  ollama@0.6.3:
+    dependencies:
+      whatwg-fetch: 3.6.20
+
   onetime@7.0.0:
     dependencies:
       mimic-function: 5.0.1
@@ -7436,6 +7474,8 @@ snapshots:
   vscode-uri@3.0.8: {}
 
   web-namespaces@2.0.1: {}
+
+  whatwg-fetch@3.6.20: {}
 
   wrap-ansi@9.0.2:
     dependencies:

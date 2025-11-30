@@ -10,22 +10,23 @@
 		"start": "bun run dist/index.js"
 	},
 	"dependencies": {
-		"hono": "catalog:",
-		"@trpc/server": "catalog:",
-		"@hono/trpc-server": "^0.4.0",
-		"better-auth": "catalog:",
-		"ai": "catalog:",
 		"@ai-sdk/google": "catalog:",
-		"dotenv": "catalog:",
-		"zod": "^4.1.11",
+		"@hono/trpc-server": "^0.4.0",
 		"@repo/api": "workspace:*",
 		"@repo/auth": "workspace:*",
-		"@repo/db": "workspace:*"
+		"@repo/db": "workspace:*",
+		"@trpc/server": "catalog:",
+		"ai": "catalog:",
+		"ai-sdk-ollama": "^1.0.2",
+		"better-auth": "catalog:",
+		"dotenv": "catalog:",
+		"hono": "catalog:",
+		"zod": "^4.1.11"
 	},
 	"devDependencies": {
-		"typescript": "^5.8.2",
+		"@repo/config": "workspace:*",
 		"@types/bun": "^1.2.6",
 		"tsdown": "^0.16.5",
-		"@repo/config": "workspace:*"
+		"typescript": "^5.8.2"
 	}
 }

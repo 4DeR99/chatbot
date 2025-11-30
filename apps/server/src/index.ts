@@ -6,12 +6,17 @@ import { auth } from "@repo/auth";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
-import { streamText, convertToModelMessages } from "ai";
-import { google } from "@ai-sdk/google";
+import { convertToModelMessages, streamText } from "ai";
+import { createOllama } from "ai-sdk-ollama";
+
+const ollama = createOllama({
+	baseURL: process.env.LLAMA_URL_ORIGIN,
+});
 
 const app = new Hono();
 
 app.use(logger());
+
 app.use(
 	"/*",
 	cors({
@@ -38,7 +43,7 @@ app.post("/ai", async (c) => {
 	const body = await c.req.json();
 	const uiMessages = body.messages || [];
 	const result = streamText({
-		model: google("gemini-2.5-flash"),
+		model: ollama("llama3.1"),
 		messages: convertToModelMessages(uiMessages),
 	});
 
