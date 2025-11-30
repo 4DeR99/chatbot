@@ -181,7 +181,7 @@ export function Sidebar({ user }: SidebarProps) {
 			</div>
 
 			{/* Conversation List */}
-			<ScrollArea className="flex-1 px-3">
+			<ScrollArea className="flex-1 px-3 overflow-y-auto">
 				<div className="space-y-1 pb-4">
 					{isLoading ? (
 						<div className="space-y-2">
