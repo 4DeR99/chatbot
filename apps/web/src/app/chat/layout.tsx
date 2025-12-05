@@ -11,16 +11,7 @@ export default function ChatLayout({
 }) {
 	const { data: session, isPending } = authClient.useSession();
 
-	if (isPending) {
-		return (
-			<div className="flex h-full items-center justify-center">
-				<Loader />
-			</div>
-		);
-	}
-
-	// Middleware handles redirect, but show loader if no session yet
-	if (!session?.user) {
+	if (isPending || !session?.user) {
 		return (
 			<div className="flex h-full items-center justify-center">
 				<Loader />

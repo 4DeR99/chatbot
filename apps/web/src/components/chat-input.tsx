@@ -3,13 +3,15 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Mic, Square, Loader2, Send } from "lucide-react";
+import { Mic, Square, Loader2, Send, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useVoiceRecorder } from "@/hooks/use-voice-recorder";
 
 interface ChatInputProps {
 	onSubmit: (message: string) => void;
 	isLoading?: boolean;
+	isStreaming?: boolean;
+	onCancelStreaming?: () => void;
 	placeholder?: string;
 	className?: string;
 	autoFocus?: boolean;
@@ -18,7 +20,9 @@ interface ChatInputProps {
 export function ChatInput({
 	onSubmit,
 	isLoading = false,
-	placeholder = "Send a message...",
+	isStreaming = false,
+	onCancelStreaming,
+	placeholder = "Envoyer un message...",
 	className,
 	autoFocus = true,
 }: ChatInputProps) {
@@ -121,7 +125,11 @@ export function ChatInput({
 						onClick={handleVoiceClick}
 						disabled={isLoading || isTranscribing}
 						className={cn("h-10 w-10 shrink-0", isRecording && "animate-pulse")}
-						title={isRecording ? "Stop recording" : "Record voice message"}
+						title={
+							isRecording
+								? "Arrêter l'enregistrement"
+								: "Enregistrer un message vocal"
+						}
 					>
 						{isRecording ? (
 							<Square className="h-4 w-4" />
@@ -132,20 +140,36 @@ export function ChatInput({
 						)}
 					</Button>
 				)}
-				<Button
-					type="submit"
-					size="icon"
-					disabled={!input.trim() || isLoading || isRecording}
-					className="h-10 w-10 shrink-0"
-				>
-					<Send className="h-4 w-4" />
-				</Button>
+				{isStreaming && onCancelStreaming ? (
+					<Button
+						type="button"
+						size="icon"
+						variant="outline"
+						onClick={onCancelStreaming}
+						className="h-10 w-10 shrink-0"
+					>
+						<X className="h-4 w-4" />
+					</Button>
+				) : (
+					<Button
+						type="submit"
+						size="icon"
+						disabled={!input.trim() || isLoading || isRecording}
+						className="h-10 w-10 shrink-0"
+					>
+						{isLoading ? (
+							<Loader2 className="h-4 w-4 animate-spin" />
+						) : (
+							<Send className="h-4 w-4" />
+						)}
+					</Button>
+				)}
 			</div>
 			{isRecording && (
 				<div className="mt-2 flex items-center justify-center gap-2 text-sm text-muted-foreground">
 					<div className="flex items-center gap-2">
 						<div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-						<span>Recording: {formatTime(recordingTime)}</span>
+						<span>Enregistrement : {formatTime(recordingTime)}</span>
 					</div>
 					<Button
 						type="button"
@@ -154,7 +178,7 @@ export function ChatInput({
 						onClick={handleCancelRecording}
 						className="h-6 px-2 text-xs"
 					>
-						Cancel
+						Annuler
 					</Button>
 				</div>
 			)}

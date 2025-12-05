@@ -100,11 +100,22 @@ export default function ChatHomePage() {
 			});
 
 			// Navigate to conversation page - it will handle the AI call
-			router.push(`/${conversation.id}?pending=true`);
+			router.push(`/chat/${conversation.id}?pending=true`);
 		} catch (error) {
 			console.error("Failed to create conversation:", error);
 			setIsCreating(false);
 		}
+	};
+
+	const suggestions = [
+		"Pourquoi contrôle-t-on précisément la concentration en ions SO₄²⁻ dans le réacteur d'attaque ?",
+		"Expliquer le phénomène de sursaturation dans la cristallisation du gypse.",
+		"Quel est l'impact d'un déséquilibre du rapport H₃PO₄/H₂SO₄ dans la réaction d'attaque ?",
+		"Quels paramètres influencent la vitesse de filtration dans un filtre rotatif ?",
+	];
+
+	const handleSuggestionClick = (suggestion: string) => {
+		handleSubmit(suggestion);
 	};
 
 	return (
@@ -112,14 +123,28 @@ export default function ChatHomePage() {
 			<div className="w-full max-w-2xl space-y-8">
 				<div className="text-center space-y-2">
 					<h1 className="text-3xl font-bold tracking-tight">
-						How can I help you today?
+						Comment puis-je vous aider aujourd'hui ?
 					</h1>
+				</div>
+
+				<div className="grid grid-cols-2 gap-3">
+					{suggestions.map((suggestion, index) => (
+						<button
+							key={index}
+							type="button"
+							onClick={() => handleSuggestionClick(suggestion)}
+							disabled={isCreating}
+							className="px-4 py-3 text-xs rounded-lg border border-gray-700 bg-gray-800 hover:bg-gray-700 text-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-left"
+						>
+							{suggestion}
+						</button>
+					))}
 				</div>
 
 				<ChatInput
 					onSubmit={handleSubmit}
 					isLoading={isCreating}
-					placeholder="Ask me anything..."
+					placeholder="Posez-moi une question..."
 					className="w-full"
 				/>
 			</div>

@@ -37,6 +37,16 @@ This project uses PostgreSQL with Drizzle ORM.
 pnpm run db:push
 ```
 
+## Environment Variables
+
+Configure the following environment variables in `apps/server/.env`:
+
+- `DATABASE_URL` - PostgreSQL connection string
+- `LLAMA_URL_ORIGIN` - Base URL for the Ollama LLM service
+- `CORS_ORIGIN` - Allowed CORS origin for the API
+- `RAG_API_BASE_URL` - Base URL for the RAG API service (optional, for enhanced context)
+- `MAX_HISTORY_TOKENS` - Maximum tokens for conversation history (default: 2000) used here since the local model doesn't have lot of room for context window
+
 
 Then, run the development server:
 

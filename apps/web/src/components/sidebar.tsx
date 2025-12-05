@@ -97,15 +97,15 @@ export function Sidebar({ user }: SidebarProps) {
 			},
 			onSuccess: (_data, deletedConversation) => {
 				// Navigate away if we deleted the current conversation
-				if (pathname === `/${deletedConversation.id}`) {
-					router.push("/");
+				if (pathname === `/chat/${deletedConversation.id}`) {
+					router.push("/chat");
 				}
 			},
 		}),
 	);
 
 	const handleNewChat = () => {
-		router.push("/");
+		router.push("/chat");
 		setMobileOpen(false);
 	};
 
@@ -170,11 +170,13 @@ export function Sidebar({ user }: SidebarProps) {
 								variant="outline"
 							>
 								<Plus className="h-4 w-4" />
-								{(!isCollapsed || isMobile) && "New Chat"}
+								{(!isCollapsed || isMobile) && "Nouvelle Conversation"}
 							</Button>
 						</TooltipTrigger>
 						{isCollapsed && !isMobile && (
-							<TooltipContent side="right">New Chat</TooltipContent>
+							<TooltipContent side="right">
+								Nouvelle Conversation
+							</TooltipContent>
 						)}
 					</Tooltip>
 				</TooltipProvider>
@@ -195,18 +197,18 @@ export function Sidebar({ user }: SidebarProps) {
 					) : conversations?.length === 0 ? (
 						(!isCollapsed || isMobile) && (
 							<p className="text-sm text-muted-foreground px-2 py-4">
-								No conversations yet
+								Aucune conversation pour le moment
 							</p>
 						)
 					) : (
 						conversations?.map((conv) => {
-							const isActive = pathname === `/${conv.id}`;
+							const isActive = pathname === `/chat/${conv.id}`;
 							return (
 								<TooltipProvider key={conv.id} delayDuration={0}>
 									<Tooltip>
 										<TooltipTrigger asChild>
 											<Link
-												href={`/${conv.id}`}
+												href={`/chat/${conv.id}`}
 												onClick={() => setMobileOpen(false)}
 												className={cn(
 													"flex items-center gap-2 rounded-md px-2 py-2 text-sm transition-colors hover:bg-accent group min-w-0",
@@ -289,7 +291,7 @@ export function Sidebar({ user }: SidebarProps) {
 								className="text-destructive"
 							>
 								<LogOut className="h-4 w-4 mr-2" />
-								Sign Out
+								Se déconnecter
 							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
@@ -309,7 +311,7 @@ export function Sidebar({ user }: SidebarProps) {
 								</Button>
 							</TooltipTrigger>
 							<TooltipContent side={isCollapsed && !isMobile ? "right" : "top"}>
-								Toggle Theme
+								Changer le thème
 							</TooltipContent>
 						</Tooltip>
 					</TooltipProvider>

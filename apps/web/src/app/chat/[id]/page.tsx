@@ -108,6 +108,7 @@ export default function ConversationPage() {
 		messages: aiMessages,
 		sendMessage,
 		status,
+		stop,
 	} = useChat({
 		transport: new DefaultChatTransport({
 			api: `${process.env.NEXT_PUBLIC_SERVER_URL}/ai`,
@@ -144,7 +145,7 @@ export default function ConversationPage() {
 			setIsStreaming(true);
 
 			// Remove the pending query param
-			router.replace(`/${conversationId}`, { scroll: false });
+			router.replace(`/chat/${conversationId}`, { scroll: false });
 
 			// Send the first message to AI
 			sendMessage({ text: conversation.messages[0].content });
@@ -161,7 +162,7 @@ export default function ConversationPage() {
 	// Redirect if conversation not found
 	useEffect(() => {
 		if (!isLoading && !conversation) {
-			router.push("/");
+			router.push("/chat");
 		}
 	}, [isLoading, conversation, router]);
 
@@ -185,6 +186,13 @@ export default function ConversationPage() {
 
 		// Send to AI
 		sendMessage({ text });
+	};
+
+	const handleCancelStreaming = () => {
+		if (status === "streaming") {
+			setIsStreaming(false);
+			stop();
+		}
 	};
 
 	// Helper to extract text from message parts
@@ -238,7 +246,9 @@ export default function ConversationPage() {
 					<ChatInput
 						onSubmit={handleSubmit}
 						isLoading={status === "streaming"}
-						placeholder="Send a message..."
+						isStreaming={status === "streaming"}
+						onCancelStreaming={handleCancelStreaming}
+						placeholder="Envoyer un message..."
 					/>
 				</div>
 			</div>

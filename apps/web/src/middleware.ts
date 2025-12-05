@@ -6,17 +6,20 @@ export function middleware(request: NextRequest) {
 		request.cookies.get("better-auth.session_token")?.value ||
 		request.cookies.get("__Secure-better-auth.session_token")?.value;
 
-	const isAuthPage =
-		request.nextUrl.pathname === "/login" ||
-		request.nextUrl.pathname === "/register";
+	const pathname = request.nextUrl.pathname;
+	const isAuthPage = pathname === "/login" || pathname === "/register";
+	const isLandingPage = pathname === "/";
+	const isChatRoute = pathname.startsWith("/chat");
 
-	// If user is on auth page and has session, redirect to home
 	if (isAuthPage && sessionToken) {
-		return NextResponse.redirect(new URL("/", request.url));
+		return NextResponse.redirect(new URL("/chat", request.url));
 	}
 
-	// If user is not on auth page and has no session, redirect to login
-	if (!isAuthPage && !sessionToken) {
+	if (isChatRoute && !sessionToken) {
+		return NextResponse.redirect(new URL("/login", request.url));
+	}
+
+	if (!isAuthPage && !sessionToken && !isLandingPage) {
 		return NextResponse.redirect(new URL("/login", request.url));
 	}
 
@@ -24,15 +27,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-	matcher: [
-		/*
-		 * Match all request paths except:
-		 * - api routes
-		 * - _next/static (static files)
-		 * - _next/image (image optimization files)
-		 * - favicon.ico
-		 * - public folder
-		 */
-		"/((?!api|_next/static|_next/image|favicon.ico|public).*)",
-	],
+	matcher: ["/((?!api|_next/static|_next/image|favicon.ico|public).*)"],
 };
